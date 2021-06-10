@@ -10,7 +10,7 @@ const ProductList = () => {
         id={product.id}
 />
     ));
-    return <div> {productList}</div>
+    return <ListWrapper> {productList}</ListWrapper>
 };
 
 export default ProductList;
