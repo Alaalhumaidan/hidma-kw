@@ -18,7 +18,9 @@ export const ShopImage = styled.img`
 display: block;
 margin-left: auto;
 margin-right: auto;
-width 50%;
+width:250px;
+height:250px;
+margin: 10;
 `;
 export const ListWrapper = styled.div`
 display: flex;
@@ -33,6 +35,8 @@ margin:20px
 img{
     width:250px;
     height:250px;
+    margin: 20;
+    padding:20;
 }
 p{
     text-align: center;
@@ -40,4 +44,19 @@ p{
         color: ${(props)=> props.theme.mainColor};
     }
 }
+`;
+export const ThemeButton = styled.button`
+font-size : 1em;
+margin: 1.25em;
+padding:0.25em 1em;
+border-radius: 3px;
+background-color: ${(props)=> props.theme.mainColor};
+color: ${(props)=> props.theme.backgroundColor};
+`;
+
+export const SearchBarStyled = styled.input`
+padding:0.5rem;
+margin: 1rem auto;
+display: block;
+width: 40%
 `;

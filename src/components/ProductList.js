@@ -1,16 +1,28 @@
 import products from "../products";
 import ProductItem from "./ProductItem";
+import { ListWrapper } from "../styles";
+import SearchBar from "./SearchBar";
+import { useState } from "react";
+import product from "../products";
 
 const ProductList = () => {
-    const productList = products.map((product)=>(
+    const [query, setQuery] = useState("");
+    const productList = products
+    .filter((product)=> product.name.toLowerCase().includes(query.toLowerCase()))
+    .map((product) => (
         <ProductItem
         name={product.name}
         price={product.price}
         image={product.image}
-        id={product.id}
+        key={product.id}
 />
     ));
-    return <ListWrapper> {productList}</ListWrapper>
+    return (
+    <div>
+    <SearchBar setQuery={setQuery}/>
+    <ListWrapper> {productList}</ListWrapper>
+    </div>
+    );
 };
 
 export default ProductList;
