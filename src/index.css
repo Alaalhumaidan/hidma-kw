@@ -3,28 +3,28 @@ body {
   font-family: 'Courier New', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-   background-color: #c08ec5;
+   background-color: #ffffff;
 
   ;
 }
 
 
 h1{
-  text-align: center; color: rgb(109, 106, 103);
+  text-align: center; color: rgb(170, 149, 149); font-family: 'Century Gothic', monospace;
 }
 h4{
-  text-align: center; color: rgb(109, 106, 103);
+  text-align: center; color: rgb(185, 162, 162); font-family: 'Century Gothic', monospace;
 }
 .text{
   text-align: center;
-  font-family:'Century Gothic', monospace; color: rgb(17, 14, 14);
+  font-family:'Century Gothic', monospace; color: rgb(255, 255, 255);
 }
 img{
   height: 300px;
   width: 300px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20;
-  margin:10;
+  margin-left:2.5cm;
+  margin-right:2.5cm;
+  
+  
 }

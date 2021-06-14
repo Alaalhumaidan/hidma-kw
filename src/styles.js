@@ -21,6 +21,7 @@ margin-right: auto;
 width:250px;
 height:250px;
 margin: 10;
+
 `;
 export const ListWrapper = styled.div`
 display: flex;
@@ -35,8 +36,7 @@ margin:20px
 img{
     width:250px;
     height:250px;
-    margin: 20;
-    padding:20;
+
 }
 p{
     text-align: center;
@@ -59,4 +59,11 @@ padding:0.5rem;
 margin: 1rem auto;
 display: block;
 width: 40%
+`;
+export const DetailWrapper= styled.div`
+margin:20px
+`;
+
+export const DeleteButtonStyled= styled.p`
+color: ${props => props.theme.red};
 `;

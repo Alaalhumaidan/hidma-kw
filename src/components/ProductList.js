@@ -5,16 +5,22 @@ import SearchBar from "./SearchBar";
 import { useState } from "react";
 import product from "../products";
 
-const ProductList = () => {
+const ProductList = (props) => {
     const [query, setQuery] = useState("");
-    const productList = products
+    const [_products, setProducts] = useState(products);
+
+    const productDelete = (productId)=> {
+        const updatedProducts = _products.filter((product) => product.id !== productId);
+        setProducts(updatedProducts);
+    };
+    const productList = _products
     .filter((product)=> product.name.toLowerCase().includes(query.toLowerCase()))
     .map((product) => (
         <ProductItem
-        name={product.name}
-        price={product.price}
-        image={product.image}
+        product={product}
         key={product.id}
+        setProduct={props.setProduct}
+        productDelete={productDelete}
 />
     ));
     return (
