@@ -1,11 +1,11 @@
-import {ProductWrapper, DeleteButtonStyled} from "../styles";
+import {ProductWrapper} from "../styles";
+import DeleteButton from "./buttons/DeleteButton";
+
 const ProductItem = (props)=>{
-    const handleDelete = () => {
-        props.productDelete(props.product.id);
-    };
+    
     return(
         <ProductWrapper>
-        <center>
+       
             <img
             onClick={()=>props.setProduct(props.product)}
             alt ={props.product.name}
@@ -13,8 +13,12 @@ const ProductItem = (props)=>{
             /> 
             <p> {props.product.name} </p>
             <p className="Products-Price">{props.product.price}KWD </p>
-            <DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>
-        </center>
+            <DeleteButton
+            productDelete={props.productDelete}
+            productId={props.product.id}
+            setProduct={props.setProduct}
+            />
+        
         </ProductWrapper>
     );
 };

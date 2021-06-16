@@ -1,4 +1,5 @@
 import { DetailWrapper } from "../styles";
+import DeleteButton from "./buttons/DeleteButton";
 
 const ProductDetail = (props) => {
     return ( 
@@ -7,7 +8,12 @@ const ProductDetail = (props) => {
             <p>{props.product.name}</p>
             <p>{props.product.description}</p>
             <p>{props.product.price}KWD</p>
-            <button onClick={()=> props.setProduct(null)}>Back</button>
+            <DeleteButton
+            productDelete={props.productDelete}
+            productID={props.product.id}
+            setProduct={props.setProduct}
+            />
+             <button onClick={()=> props.setProduct(null)}>Back</button>
         </DetailWrapper>
     );
 };
