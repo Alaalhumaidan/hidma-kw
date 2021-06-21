@@ -1,13 +1,21 @@
 import "./App.css";
 import ProductList from "./components/ProductList";
-import {GlobalStyle, Title, Description, ShopImage} from "./styles";
 import { useState } from "react";
 import { ThemeProvider } from "styled-components";
-import { ThemeButton } from "./styles";
 import { white } from "color-name";
 import ProductDetail from "./components/ProductDetail";
 import products from "./products";
+//task 09
+import { Route, Switch } from "react-router";
+import Home from "./components/Home";
+import ligthlogo from "./images/blue.jpg";
+import darklogo from "./images/logo.jpg";
 
+import {GlobalStyle, 
+  ThemeButton,
+  NavLinkStyled,
+  Logo
+  } from "./styles";
 
 const theme = {
   light: {
@@ -38,39 +46,58 @@ function App() {
     else setCurrentTheme("light");
 
   };
-  const setView = () => {
-    return product ? (
-      <ProductDetail 
-      product={product} 
-      setProduct={setProduct}
-      productDelete={productDelete}
-      />
-    ) : (
-      <ProductList 
-      setProduct={setProduct}
-      products={_products}
-      productDelete={productDelete}
-      />
-    );
-  };
+  // const setView = () => {
+  //   return product ? (
+  //     <ProductDetail 
+  //     product={product} 
+  //     setProduct={setProduct}
+  //     productDelete={productDelete}
+  //     />
+  //   ) : (
+  //     <ProductList
+  //     setProduct={setProduct}
+  //     products={_products}
+  //     productDelete={productDelete}
+  //     />
+  //   )
+    // }
   return (
     
     <div>
-    <ThemeProvider theme={theme[currentTheme]}>
+     <ThemeProvider theme={theme[currentTheme]}>
     <GlobalStyle/>
-  <div>
+
+    <Logo to="/">
+    <img src={currentTheme === "light" ? ligthlogo : darklogo} width="10" />
+    </Logo>
+
+      <NavLinkStyled to ="/products">Products</NavLinkStyled>
+  
     <ThemeButton onClick={toggleTheme}>
     {currentTheme === "light" ? "Dark" : "Light"} mode
     </ThemeButton>
-     <Title>Gifts and Apparels</Title>
-     <Description>Hidma celebrates your occasions in  unique way</Description> 
-      
-     <ShopImage
-    alt = "shop"
-    src = "https://lh3.googleusercontent.com/kaJ1E5-rbrWqetVwaH0s5hOj4KX-gQgmcbQ4dePnrUk1-VLx52e6srmod_jpO0neoBlyW28r5qVJz2IFL0ZqRsvhvLDfJagCBlxAM6rn_plnBvtX_Tf8_2rN6Waav1ed7ZltLMXiXl5wTu93hzLBstKAUn3uNHbsNSqKUBCOsGrq98IwK9t-c54RjjqDuwtVgO5f_wu8njRPG3tge5mqjZO66LYpKE6oc-dG5GnqxDzKxO4SA2CSyG9fqnY2QQ75AHcJc7DDQQM9V8nx1QSEMLH3Tj-gI_bnqPd3ats5aTyO74QcUDfY7GClh_2WBwfhNf0HBBdqPVi8fiOcUOaMBjSyKkItYLplZvrgx3qI8fe0iOhSJ9_m7ZPPNRoD328nirJFbt9ksAcVtc4OyxvVNeLey-1J-iyi3NC9a9uMuSQ9Sv6y2snJQlUjoCYR035a911OrZrny8jEx34RQTE4PUf4t639SFgiw4XWqjNCnBr5pXnmh4qaZoiDNd1F44L1eFFLDRiYwRr5mCrkIJymHKt3gUGBgswVLoCo8rtG7-_c3f14xfhQrAHSOtS282Cqs1P3uGUEXOrq0v4q5VmAodskvHlNtFmEqW-fbuYfMMikiWCIW9Yy4pp7qSGNuGRNw45gC6-kAcFZovNjf9xU0z4JVf3AD40hmPTJERdpoIpCSEwUROwqYUPF7iWQYnKKcRnJeMYFBXoQYSX_QhEWtZ9i=w865-h903-no?authuser=0"     
-     />
-     </div>
-    {setView()}
+    <Switch>
+     <Route path="/products/:productSlug">
+     <ProductDetail 
+      currentTheme={currentTheme}
+      products={_products} 
+      setProduct={setProduct}
+      productDelete={productDelete}
+      />
+     </Route>
+      <Route path ="/products"> 
+       <ProductList
+        setProduct={setProduct}
+        products={_products}
+        productDelete={productDelete}
+        /> 
+      </Route>
+       <Route exact path="/">
+      <Home/>
+      </Route>
+    </Switch>
+
+
     </ThemeProvider>
     </div>
   );
