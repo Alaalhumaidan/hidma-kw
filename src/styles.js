@@ -1,5 +1,6 @@
 import styled, {createGlobalStyle} from "styled-components";
 import {Link} from "react-router-dom";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 
 export const GlobalStyle = createGlobalStyle`
@@ -7,6 +8,28 @@ body{
     background-color: ${(props)=> props.theme.backgroundColor};
     color: ${(props) => props.theme.mainColor};
 }`;
+
+// export const TheNameStyled = styled(TheName)`
+// text-align: center`;
+
+export const AiOutlinePlusCircleStyled = styled(AiOutlinePlusCircle)`
+margin-left: 50%;
+
+`;
+
+export const UpdateButtonStyled = styled.p`
+margin: 1.25em;
+padding:0.25em 1em;
+text-align: center;
+`;
+export const CreateButtonStyled = styled.button`
+font-size : 1em;
+margin: 1.25em;
+padding:0.25em 1em;
+border-radius: 3px;
+
+`;
+
 export const Logo = styled(Link)`
 padding:0.75em;
 img{
@@ -66,6 +89,9 @@ border-radius: 3px;
 background-color: ${(props)=> props.theme.mainColor};
 color: ${(props)=> props.theme.backgroundColor};
 `;
+
+export const NavStyled = styled.nav `
+background-color:${(props)=> props.theme.mainColor}`
 
 export const SearchBarStyled = styled.input`
 padding:0.5rem;

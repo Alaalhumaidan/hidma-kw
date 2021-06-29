@@ -1,31 +1,43 @@
 import products from "../products";
 import ProductItem from "./ProductItem";
-import { ListWrapper } from "../styles";
+import { ListWrapper, AiOutlinePlusCircleStyled} from "../styles";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
-import product from "../products";
+import productStore from "../stores/productStore";
+import { observer } from "mobx-react";
+import ProductModal from "../ProductModal";
 
-    const ProductList = (props) => {
+
+// import ProductStore from "../stores/productStore";
+
+
+    const ProductList = () => {
     const [query, setQuery] = useState("");
-    
+    const [isOpen, setIsOpen] = useState(false);
 
+    const openModal = () => setIsOpen(true);
+    const closeModal = () => setIsOpen(false);
     
-    const productList = props.products
+    //filter of undefined??
+    const productList = productStore.products
     .filter((product)=> product.name.toLowerCase().includes(query.toLowerCase()))
-    .map((product) => (
+    .map((product) => 
         <ProductItem
         product={product}
         key={product.id}
-        setProduct={props.setProduct}
-        productDelete={props.productDelete}
+
 />
-    ));
+    );
     return (
     <div>
     <SearchBar setQuery={setQuery}/>
+    <AiOutlinePlusCircleStyled size="2em" onClick={openModal}/>
+    <ProductModal isOpen={isOpen} closeModal={closeModal}/>
     <ListWrapper> {productList}</ListWrapper>
-    </div>
+    {/* <ProductStore/> */}
+     </div>
+   
     );
 };
 
-export default ProductList;
+export default observer(ProductList);
