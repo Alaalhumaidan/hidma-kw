@@ -1,6 +1,8 @@
-import lightlogo from "/images/blue.jpg";
-import darklogo from "/images/logo.jpg";
-import { ThemeButton, NavLinkStyled, Logo, NavStyled } from "./styles";
+import lightlogo from "../images/blue.jpg";
+import darklogo from "../images/logo.jpg";
+import { ThemeButton, NavLinkStyled, Logo, NavStyled } from "../styles";
+import SignupButton from "./buttons/SignupButton";
+import SigninButton from "./buttons/SigninButton";
 
 const NavBar = (props) => {
     return (
@@ -15,8 +17,13 @@ const NavBar = (props) => {
               <ThemeButton onClick={props.toggleTheme}>
                 {props.currentTheme==="light" ? "Dark" : "Light"} mode
                </ThemeButton>
+               <SignupButton/>
+               <SigninButton/>
                   <NavLinkStyled to="/products" className="nav-item">
                   Products
+                  </NavLinkStyled>
+                  <NavLinkStyled to="/shops" className="nav-item">
+                  Shops
                   </NavLinkStyled>
               </ul>
                 </div>

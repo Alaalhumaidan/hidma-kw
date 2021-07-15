@@ -3,15 +3,14 @@ import ProductItem from "./ProductItem";
 import { ListWrapper, AiOutlinePlusCircleStyled} from "../styles";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
-import productStore from "../stores/productStore";
 import { observer } from "mobx-react";
-import ProductModal from "../ProductModal";
+import ProductModal from "../modals/ProductModal";
 
 
 // import ProductStore from "../stores/productStore";
 
 
-    const ProductList = () => {
+    const ProductList = ({products, shop}) => {
     const [query, setQuery] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
@@ -19,7 +18,7 @@ import ProductModal from "../ProductModal";
     const closeModal = () => setIsOpen(false);
     
     //filter of undefined??
-    const productList = productStore.products
+    const productList = products
     .filter((product)=> product.name.toLowerCase().includes(query.toLowerCase()))
     .map((product) => 
         <ProductItem
@@ -32,9 +31,12 @@ import ProductModal from "../ProductModal";
     <div>
     <SearchBar setQuery={setQuery}/>
     <AiOutlinePlusCircleStyled size="2em" onClick={openModal}/>
-    <ProductModal isOpen={isOpen} closeModal={closeModal}/>
+    <ProductModal 
+    isOpen={isOpen} 
+    closeModal={closeModal}
+    shop={shop}
+    />
     <ListWrapper> {productList}</ListWrapper>
-    {/* <ProductStore/> */}
      </div>
    
     );

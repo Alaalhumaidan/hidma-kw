@@ -8,15 +8,19 @@ import products from "./products";
 //task 09 Route & Switch
 import { Route, Switch } from "react-router";
 import Home from "./components/Home";
-
-import ligthlogo from "./images/blue.jpg";
-import darklogo from "./images/logo.jpg";
+import ShopList from "./components/ShopList";
+import NavBar from "./components/NavBar";
+import ShopDetail from "./components/ShopDetail";
 
 import {GlobalStyle, 
   ThemeButton,
   NavLinkStyled,
   Logo
   } from "./styles";
+import { observer } from "mobx-react";
+import productStore from "./stores/productStore";
+import shopStore from "./stores/shopStore";
+import Routes from "./components/Routes";
 
 const theme = {
   light: {
@@ -44,31 +48,14 @@ function App() {
      <ThemeProvider theme={theme[currentTheme]}>
     <GlobalStyle/>
 
-    <Logo to="/">
-    <img src={currentTheme === "light" ? ligthlogo : darklogo} width="10" />
-    </Logo>
+    <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme}/>
+    { false ? (
+     <h1> Loadinggg ... </h1> 
+    ) : ( <Routes/> )}
 
-      <NavLinkStyled to ="/products">Products</NavLinkStyled>
-  
-    <ThemeButton onClick={toggleTheme}>
-    {currentTheme === "light" ? "Dark" : "Light"} mode
-    </ThemeButton>
-    <Switch>
-     <Route path="/products/:productSlug">
-     <ProductDetail 
-      />
-     </Route>
-      <Route path ="/products"> 
-       <ProductList
-        /> 
-      </Route>
-       <Route exact path="/">
-      <Home/>
-      </Route>
-    </Switch>
     </ThemeProvider>
     </div>
   );
   }
-
-export default App;
+//shopStore.loading && productStore.loading
+export default observer(App);

@@ -9,6 +9,26 @@ body{
     color: ${(props) => props.theme.mainColor};
 }`;
 
+export const AuthButtonStyled = styled.button `
+font-size: 1em;
+padding: 0.1em 0.1em;
+margin-left: 0.1em;
+border-radius: 200px;
+background-color: ${(props)=> props.theme.pink};
+color: ${(props)=> props.theme.backgroundColor};
+`;
+export const AuthinButtonStyled = styled.button `
+font-size: 1em;
+padding: 0.1em 0.1em;
+margin-left: 1em;
+border-radius: 200px;
+background-color: ${(props)=> props.theme.pink};
+color: ${(props)=> props.theme.backgroundColor};
+`;
+
+export const ShopItemImage = styled.img `
+width: 20 em;
+`;
 // export const TheNameStyled = styled(TheName)`
 // text-align: center`;
 

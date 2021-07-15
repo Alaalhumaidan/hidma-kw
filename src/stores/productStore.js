@@ -1,33 +1,30 @@
 import products from "../products";
 import {makeAutoObservable} from "mobx";
 import slugify from "react-slugify";
-import axios from "axios";
+import instance from "./instance";
 
  class ProductStore{
-     products = products;
-
+     products = [];
+    loading = true;
      constructor(){
          //for when data is updated, compnents will be re rendered
          makeAutoObservable(this);
      }
    
      fetchProducts = async () => {
-        //  console.log("Lets fetch some products");
         try{
-    const response = await axios.get("http://localhost:8000/products");
+    const response = await instance.get("/products");
     this.products = response.data;
+    this.loading= false;
         }catch(error){
         console.error("fetchProducts: ", error);
     }
      };
 // async a synchronous : it will make the request 
  productDelete = async(productId)=> {
-    // const updatedProducts = this.products.filter(
-    //     (product) => product.id !== productId
-    // );
-    // this.product = updatedProducts;
+
     try{
-        await axios.delete(`http://localhost:8000/products/${productId}`);
+        await instance.delete(`/products/${productId}`);
         const updatedProducts = this.products.filter(
             (product) => product.id !== productId
         );
@@ -38,28 +35,41 @@ import axios from "axios";
     
  };
 
-     getProducts = () => {
-         this.products = products;
-     };
- 
-    productCreate = (newProduct) => {
-        newProduct.id = this.products.length+1;
-        newProduct.slug = slugify(newProduct.name);
-        this.products.push(newProduct);
+    productCreate = async(newProduct, shop) => {
+        try{
+            const formData = new FormData();
+            for (const key in newProduct) formData.append(key,newProduct[key]);
+            const response = await instance.post(
+                "/shops/${shop.id}/products",
+                formData
+            );
+            this.products.push(response.data);
+            shop.products.push({id: response.data.id})
+        } catch (error){
+            console.error(error);
+        }
+  
+    };
+    productUpdate = async (updatedProduct) => {
+        try {
+            const formData = new FormData();
+            for (const key in updatedProduct) formData.append(key,updatedProduct[key]);
+            const response = await instance.put(
+            `/products/${updatedProduct.id}`,
+            formData
+            );
+       const product = this.products.find(
+      (product) => product.id === response.data.id);
+    for( const key in product) product[key] = response.data[key];
+    } catch (error) {
+        console.log(error);
     }
-    productUpdate = (updatedProduct) => {
-        const product = this.products.find((product) => product.id === updatedProduct.id);
-        product.name = updatedProduct.name;
-        product.price = updatedProduct.price;
-        product.description = updatedProduct.description;
-        product.image = updatedProduct.image;
-        product.slug = slugify(updatedProduct.name);
-    }
-    
-   
+    };
+    getProductId = (productId)=>
+    this.products.find((product)=>
+    product.id === productId);   
 }
     const productStore = new ProductStore();
-//  productStore.getProducts();
     productStore.fetchProducts();
  
 export default productStore;
